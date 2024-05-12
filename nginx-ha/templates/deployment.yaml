@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    {{- include "nginx-node-exporter.labels" . | nindent 4 }}
+    nginx
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
