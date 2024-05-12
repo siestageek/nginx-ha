@@ -13,21 +13,16 @@ spec:
       name: http
   selector:
     nginx
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-node-exporter
-  labels:
-    nginx-node-exporter
+  name: node-exporter
 spec:
-  type: {{ .Values.nodeExporter.service.type }}
+  type: NodePort
   ports:
-    - port: {{ .Values.nodeExporter.service.port }}
-      targetPort: metrics
-      nodePort: {{ .Values.nodeExporter.service.nodePort }}
-      protocol: TCP
-      name: metrics
+  - port: 9100
+    targetPort: 9100
+    nodePort: 30100
   selector:
-    node-exporter
+    app: node-exporter
