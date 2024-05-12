@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nginx-node-exporter.fullname" . }}
+  labels:
+    {{- include "nginx-node-exporter.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "nginx-node-exporter.selectorLabels" . | nindent 4 }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nginx-node-exporter.fullname" . }}-node-exporter
+  labels:
+    {{- include "nginx-node-exporter.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.nodeExporter.service.type }}
+  ports:
+    - port: {{ .Values.nodeExporter.service.port }}
+      targetPort: metrics
+      nodePort: {{ .Values.nodeExporter.service.nodePort }}
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "nginx-node-exporter.selectorLabels" . | nindent 4 }}
