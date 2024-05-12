@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nginx-node-exporter.fullname" . }}
+  name: nginx-deployment
   labels:
     {{- include "nginx-node-exporter.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "nginx-node-exporter.selectorLabels" . | nindent 6 }}
+      app: nginx
   template:
     metadata:
       labels:
-        {{- include "nginx-node-exporter.selectorLabels" . | nindent 8 }}
+        app: nginx
     spec:
       containers:
         - name: nginx
