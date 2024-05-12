@@ -30,4 +30,4 @@ spec:
       protocol: TCP
       name: metrics
   selector:
-    nginx-node-exporter
+    node-exporter
